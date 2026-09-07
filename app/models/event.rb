@@ -6,7 +6,6 @@ class Event < ApplicationRecord
   validate :validate_if_started_in_future, on: :create
   validate :validate_if_finished_greater_tan_started_at
 
-
   private
 
   def validate_if_finished_greater_tan_started_at
