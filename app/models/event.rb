@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  belongs_to :category, optional: true
+
   validates :name, presence: true
   validates :name, length: { minimum: 3 , maximum: 100, allow_blank: true }
   validates :started_at, presence: true
