@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-  belongs_to :category, optional: true
+  belongs_to :category
 
   validates :name, presence: true
   validates :name, length: { minimum: 3 , maximum: 100, allow_blank: true }
@@ -8,6 +8,9 @@ class Event < ApplicationRecord
   validate :validate_if_started_in_future, on: :create
   validate :validate_if_finished_greater_tan_started_at
 
+  scope :with_category, -> { includes(:category) }
+  scope :today, -> { where(staterd_at: Date.current.beginning_of_day..Date.current.end_of_day) }
+  scope :in_period, -> (period_start, period_end) { where("started_at >= ? AND started_at <= ?", period_start, period_end) }
 
   private
 
